@@ -23,7 +23,7 @@ function Gym() {
   const onClick = async () => {
     try {
       const response = await axios.get(
-        "http://openapi.seoul.go.kr:8088/486b6c66506b6a6c383579666b6f50/json/LOCALDATA_104201/1/1000/"
+        `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_GYM_API_KEY}/json/LOCALDATA_104201/1/1000/`
       );
       // 추후에는 response.data.LOCALDATA_104201["list_total_count"] 이 값을 반복문에 넣을예정
       for (i = 0; i < 1000; i++) {
