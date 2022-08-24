@@ -35,7 +35,14 @@ function SelectedLocation() {
 
   const handleSelect = (e) => {
     setLocation(e);
-    var i, j;
+    var i;
+
+    // 버튼이 클릭되면 기존에 가지고 있는 배열을 초기화 시켜줘야 함.
+    onoffArray = [];
+    guonoffArray = [];
+    setOnoff(onoffArray);
+    setGuOnoff(guonoffArray);
+
     /**
      * @memo 서울시에서 가져온 공공데이터 중에서 영업중인 곳에 대한 데이터를 openGymData에 저장하고 이를 Onoff 배열에 밀어넣는 식으로 저장
      */
@@ -45,18 +52,15 @@ function SelectedLocation() {
         setOnoff((onoffArray) => [...onoffArray, openGymData]);
       }
     }
-    console.log(onoff);
-    /**
-     * @memo 영업중인 헬스장 위치가 선택된 지역(e)이면 또 다른 배열에 저장 
-     */
-    // for (j = 0 ; j < 1000; j++){
-    //   // 영업중인 업소중(onoff[i])에서 현재 선택한 지역(e)이 있으면 추가
-    //   if ( (onoff[j]["RDNWHLADDR"]).indexOf(e) != -1){
-    //     let GuOpenGymData = result.data.LOCALDATA_104201.row[j];
-    //     setGuOnoff((guonoffArray) => [...guonoffArray, GuOpenGymData]);
-    //   }
-    // }
-    // console.log(guonoff);
+
+    for (i = 0 ; i < onoff.length ; i ++){
+      if ((onoff[i]["RDNWHLADDR"]).indexOf(e) !== -1) {
+        let GuOpenGymData = result.data.LOCALDATA_104201.row[i];
+        setGuOnoff((guonoffArray) => [...guonoffArray, GuOpenGymData]);
+      }
+    }
+
+    console.log(guonoff);
   }
 
   return (
@@ -69,7 +73,6 @@ function SelectedLocation() {
         <Button>서울에 살아요.</Button>
         {/* <Button>2</Button> */}
 
-        {/* 각각의 버튼이 눌렀을 경우에 배열을 초기화를 시켜야 함. */}
         <DropdownButton
           as={ButtonGroup}
           title="사는 동네를 설정해주세요."
@@ -103,9 +106,6 @@ function SelectedLocation() {
           <Dropdown.Item eventKey="중량구">중량구</Dropdown.Item>
         </DropdownButton>
       </ButtonGroup>
-
-      <div> {result.data && result.data.LOCALDATA_104201.row[4]["DTLSTATENM"]} </div>
-      <div> {result.data && result.data.LOCALDATA_104201.row[4]["RDNWHLADDR"]} </div>
       <div> {location} </div>
     </>
   );
