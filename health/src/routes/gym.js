@@ -55,8 +55,7 @@ function SelectedLocation() {
 
     for (i = 0 ; i < onoff.length ; i ++){
       if ((onoff[i]["RDNWHLADDR"]).indexOf(e) !== -1) {
-        let GuOpenGymData = result.data.LOCALDATA_104201.row[i];
-        setGuOnoff((guonoffArray) => [...guonoffArray, GuOpenGymData]);
+        console.log()
       }
     }
 
