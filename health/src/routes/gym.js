@@ -14,6 +14,7 @@ function Gym() {
 
 function SelectedLocation() {
 
+  // 데이터가 총 5000개 가 넘게 있는거 생각해야 됨.
   const result = useQuery(
     ["todos"],
     async () =>
@@ -36,16 +37,9 @@ function SelectedLocation() {
   const handleSelect = (e) => {
     setLocation(e);
     var i;
-
-    // 버튼이 클릭되면 기존에 가지고 있는 배열을 초기화 시켜줘야 함.
-    // 따로 배열 설정을 하는 것이 아니라 state 관리만 해줘도 됨
-    onoffArray = [];
-    guonoffArray = [];
     
-    // 첫 클릭이 이루어 여기 state가 실행이 되어 빈 배열을 만드는 거임
-    // 따라서 시작하기 전에 빈 배열을 만들고 싶다면 밖으로 빼야 할 듯함.
-    setOnoff(onoffArray);
-    setGuOnoff(guonoffArray);
+    setOnoff([]);
+    setGuOnoff([]);
 
     /**
      * @memo 서울시에서 가져온 공공데이터 중에서 영업중인 곳에 대한 데이터를 openGymData에 저장하고 이를 Onoff 배열에 밀어넣는 식으로 저장
@@ -58,8 +52,8 @@ function SelectedLocation() {
     }
 
     for (i = 0 ; i < onoff.length ; i ++){
-      if ((onoff[i]["RDNWHLADDR"]).indexOf(e) !== -1) {
-        let guOpenGymlData = result.data.LOCALDATA_104201.row[i];
+      let guOpenGymlData = onoff[i];
+      if ( guOpenGymlData["RDNWHLADDR"].indexOf(e) !== -1 ) {
         setGuOnoff((guonoffArray) => [...guonoffArray, guOpenGymlData]);
       }
     }
