@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { Carousel } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
@@ -22,7 +22,7 @@ function ControlledCarousel() {
     async () =>
       await axios
         .get(
-          `https://newsapi.org/v2/everything?q=bitcoin&apiKey=${process.env.REACT_APP_newsDataAPIKEY}`
+          `https://newsapi.org/v2/everything?q=Health&from=2022-08-01&to=2022-08-26&sortBy=popularity&apiKey=${process.env.REACT_APP_newsDataAPIKEY}`
         )
         .then((a) => {
           return a.data;
@@ -35,7 +35,6 @@ function ControlledCarousel() {
     setIndex(selectedIndex);
   };
 
-  // 괜찮은 뉴스 4~5개를 가져와서 업데이트 하는 것이 좋아 보일 듯?
   return (
     <Carousel
       activeIndex={index}
