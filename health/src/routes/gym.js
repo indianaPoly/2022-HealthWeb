@@ -38,8 +38,12 @@ function SelectedLocation() {
     var i;
 
     // 버튼이 클릭되면 기존에 가지고 있는 배열을 초기화 시켜줘야 함.
+    // 따로 배열 설정을 하는 것이 아니라 state 관리만 해줘도 됨
     onoffArray = [];
     guonoffArray = [];
+    
+    // 첫 클릭이 이루어 여기 state가 실행이 되어 빈 배열을 만드는 거임
+    // 따라서 시작하기 전에 빈 배열을 만들고 싶다면 밖으로 빼야 할 듯함.
     setOnoff(onoffArray);
     setGuOnoff(guonoffArray);
 
@@ -55,7 +59,8 @@ function SelectedLocation() {
 
     for (i = 0 ; i < onoff.length ; i ++){
       if ((onoff[i]["RDNWHLADDR"]).indexOf(e) !== -1) {
-        console.log()
+        let guOpenGymlData = result.data.LOCALDATA_104201.row[i];
+        setGuOnoff((guonoffArray) => [...guonoffArray, guOpenGymlData]);
       }
     }
 
