@@ -4,6 +4,7 @@ import { Carousel } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 
 function NewsData() {
+  
   const result = useQuery(
     ["todos"],
     async () =>
