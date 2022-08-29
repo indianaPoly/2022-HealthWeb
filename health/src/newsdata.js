@@ -8,7 +8,7 @@ function NewsData() {
 }
 
 function ControlledCarousel() {
-  
+
   let result = useQuery(["todos"], () =>
     axios
       .get(
@@ -18,8 +18,6 @@ function ControlledCarousel() {
         return a.data;
       })
   );
-
-  console.log(result.data);
 
   return (
     <div>
