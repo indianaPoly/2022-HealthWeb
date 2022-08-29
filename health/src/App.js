@@ -47,7 +47,13 @@ function Navbar_() {
           onClick={() => {
             navigate("/");
           }}
-          style={{ fontSize: 30, fontWeight: 700, color: "white" }}
+          style={{
+            color: "#fff",
+            letterSpacing: "-1px",
+            fontSize: "30px",
+            fontWeight: 700,
+            textShadow: "1px 1px 3px #222"
+          }}
         >
           SIGN
         </Navbar.Brand>
@@ -56,7 +62,13 @@ function Navbar_() {
             onClick={() => {
               navigate("/gym");
             }}
-            style={{ fontSize: 14, marginLeft: 10, color: "white" }}
+            style={{
+              color: "#fff",
+              letterSpacing: "-1px",
+              fontSize: "13px",
+              fontWeight: 700,
+              textShadow: "1px 1px 3px #222"
+            }}
           >
             헬스장 정보
           </Nav.Link>
@@ -64,7 +76,13 @@ function Navbar_() {
             onClick={() => {
               navigate("/supplement");
             }}
-            style={{ fontSize: 14, marginLeft: 10, color: "white" }}
+            style={{
+              color: "#fff",
+              letterSpacing: "-1px",
+              fontSize: "13px",
+              fontWeight: 700,
+              textShadow: "1px 1px 3px #222"
+            }}
           >
             보충제 정보
           </Nav.Link>
@@ -72,7 +90,13 @@ function Navbar_() {
             onClick={() => {
               navigate("/signup");
             }}
-            style={{ fontSize: 14, marginLeft: 70, color: "white" }}
+            style={{
+              color: "#fff",
+              letterSpacing: "-1px",
+              fontSize: "13px",
+              fontWeight: 700,
+              textShadow: "1px 1px 3px #222"
+            }}
           >
             회원가입 하기
           </Nav.Link>
@@ -80,7 +104,13 @@ function Navbar_() {
             onClick={() => {
               navigate("/signin");
             }}
-            style={{ fontSize: 14, marginLeft: 10, color: "white" }}
+            style={{
+              color: "#fff",
+              letterSpacing: "-1px",
+              fontSize: "13px",
+              fontWeight: 700,
+              textShadow: "1px 1px 3px #222"
+            }}
           >
             로그인 하기
           </Nav.Link>

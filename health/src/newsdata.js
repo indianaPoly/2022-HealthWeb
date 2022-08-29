@@ -4,19 +4,6 @@ import { Carousel } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 
 function NewsData() {
-  return (
-    <div>
-      <ControlledCarousel></ControlledCarousel>
-    </div>
-  );
-}
-
-function ControlledCarousel() {
-
-  /**
-   *  @todo api 가져올 때 최상의 결과를 가지고 올 수 있도록 URL 주소 만지기
-   */
-
   const result = useQuery(
     ["todos"],
     async () =>
@@ -29,54 +16,86 @@ function ControlledCarousel() {
         })
   );
 
-  const [index, setIndex] = useState(0);
-
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-  };
-
   return (
-    <Carousel
-      activeIndex={index}
-      onSelect={handleSelect}
-    >
+    <div>
+      <ControlledCarousel result={result}></ControlledCarousel>
+    </div>
+  );
+}
 
-      {/* map 함수 이용해서 이 아이템을 여러개 만들도록 하기 */}
+function ControlledCarousel(props) {
+  return (
+    <Carousel>
       <Carousel.Item>
-        <a href={result.data && result.data.articles[0]["url"]}>
-          <div>
-            <img
+        <a href={props.result.data.articles[1]["url"]}>
+          <img
+            className="d-block w-100 "
+            src={props.result.data.articles[1]["urlToImage"]}
+            alt="First slide"
+          />
+          <Carousel.Caption>
+            <h3
               style={{
-                position:"relative",
-                top: 0,
-                width: "100%",
-                height: "100%",
-                margin: 0
-              }}
-              src={result.data && result.data.articles[0]["urlToImage"]}
-              alt=""
-            />
-
-            {/* text box 임. 이것을 realtive로 만들어서 이미지 위에 올라오도록 해야 함. */}
-            <div
-              style={{
-                position: "relative",
-                top:"-100px",
-                right: "100px",
-                width: "1200px",
-                height: "100%",
-                margin: "auto",
                 color: "#fff",
-                overflow: "hidden",
+                letterSpacing: "-1px",
+                fontSize: "23px",
+                fontWeight: 700,
+                textShadow: "1px 1px 3px #222",
               }}
             >
-              <h4> {result.data && result.data.articles[0]["title"]}</h4>
-            </div>
-          </div>
+              {" "}
+              {props.result.data.articles[1]["title"]}{" "}
+            </h3>
+          </Carousel.Caption>
         </a>
-        <Carousel.Caption>
-          <h3>{}</h3>
-        </Carousel.Caption>
+      </Carousel.Item>
+
+      <Carousel.Item>
+        <a href={props.result.data.articles[2]["url"]}>
+          <img
+            className="d-block w-100"
+            src={props.result.data.articles[2]["urlToImage"]}
+            alt="First slide"
+          />
+          <Carousel.Caption>
+            <h3
+              style={{
+                color: "#fff",
+                letterSpacing: "-1px",
+                fontSize: "23px",
+                fontWeight: 700,
+                textShadow: "1px 1px 3px #222",
+              }}
+            >
+              {" "}
+              {props.result.data.articles[2]["title"]}{" "}
+            </h3>
+          </Carousel.Caption>
+        </a>
+      </Carousel.Item>
+
+      <Carousel.Item>
+        <a href={props.result.data.articles[3]["url"]}>
+          <img
+            className="d-block w-100"
+            src={props.result.data.articles[3]["urlToImage"]}
+            alt="First slide"
+          />
+          <Carousel.Caption>
+            <h3
+              style={{
+                color: "#fff",
+                letterSpacing: "-1px",
+                fontSize: "23px",
+                fontWeight: 700,
+                textShadow: "1px 1px 3px #222",
+              }}
+            >
+              {" "}
+              {props.result.data.articles[3]["title"]}{" "}
+            </h3>
+          </Carousel.Caption>
+        </a>
       </Carousel.Item>
     </Carousel>
   );
