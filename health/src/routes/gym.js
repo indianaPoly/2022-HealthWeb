@@ -1,19 +1,10 @@
 import axios from "axios";
 import { Button, ButtonGroup, DropdownButton, Dropdown } from "react-bootstrap";
-import { useQuery } from '@tanstack/react-query';
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useMemo, useState } from "react";
+import { useTable } from "react-table";
 
 function Gym() {
-
-  return (
-    <>
-      <SelectedLocation></SelectedLocation>
-    </>
-  );
-}
-
-function SelectedLocation() {
-
   // 데이터가 총 5000개 가 넘게 있는거 생각해야 됨.
   const result = useQuery(
     ["todos"],
@@ -37,30 +28,25 @@ function SelectedLocation() {
   const handleSelect = (e) => {
     setLocation(e);
     var i;
-    
+
     setOnoff([]);
     setGuOnoff([]);
 
-    /**
-     * @memo 서울시에서 가져온 공공데이터 중에서 영업중인 곳에 대한 데이터를 openGymData에 저장하고 이를 Onoff 배열에 밀어넣는 식으로 저장
-     */
-    for (i = 0 ; i < 1000 ; i++){
-      if (result.data.LOCALDATA_104201.row[i]["DTLSTATENM"] === "영업중"){
+    for (i = 0; i < 1000; i++) {
+      if (result.data.LOCALDATA_104201.row[i]["DTLSTATENM"] === "영업중") {
         let openGymData = result.data.LOCALDATA_104201.row[i];
         setOnoff((onoffArray) => [...onoffArray, openGymData]);
       }
     }
 
-    for (i = 0 ; i < onoff.length ; i ++){
+    for (i = 0; i < onoff.length; i++) {
       let guOpenGymlData = onoff[i];
-      if ( guOpenGymlData["RDNWHLADDR"].indexOf(e) !== -1 ) {
+      if (guOpenGymlData["RDNWHLADDR"].indexOf(e) !== -1) {
         setGuOnoff((guonoffArray) => [...guonoffArray, guOpenGymlData]);
       }
     }
-
-    console.log(guonoff);
-  }
-
+  };
+  
   return (
     <>
       <ButtonGroup
@@ -105,13 +91,63 @@ function SelectedLocation() {
         </DropdownButton>
       </ButtonGroup>
       <div> {location} </div>
+      <GymDataTable guonoff={guonoff}></GymDataTable>
     </>
   );
 }
-export default Gym;
 
-// 헬스장 정보에 관해서 현재 위치 가져오기
-// Geolocation API 통해서 현재 위치 가져오고
-// 동 단위로 끊어서 보여주기
-// 위에는 추가적으로 동네 설정하면 헬스장 보여주는 식으로 하면 될 듯함요.
-// 디자인도 해야겠네요
+function GymDataTable(props) {
+  const columnData = [
+    {
+      Header: "헬스장 이름",
+      accessor: "BPLCNM",
+    },
+    {
+      Header: "헬스장 위치",
+      accessor: "RDNWHLADDR",
+    },
+    {
+      Header: "헬스장 영업여부",
+      accessor: "TRDSTATENM",
+    },
+  ];
+
+  const columns = useMemo(() => columnData, []);
+  const data = useMemo(() => props.guonoff, []);
+
+  const tableInstance = useTable({
+    columns,
+    data,
+  });
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    tableInstance;
+
+  return (
+    <table {...getTableProps()}>
+      <thead>
+        {headerGroups.map((headerGroups) => (
+          <tr {...headerGroups.getHeaderGroupProps()}>
+            {headerGroups.headers.map((columns) => (
+              <th {...columns.getHeaderProps()}>{columns.render("Header")}</th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => {
+                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+}
+
+export default Gym;
