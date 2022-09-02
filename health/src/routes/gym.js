@@ -45,6 +45,7 @@ function Gym() {
         setGuOnoff((guonoffArray) => [...guonoffArray, guOpenGymlData]);
       }
     }
+    console.log(guonoff);
   };
   
   return (
@@ -101,7 +102,7 @@ function GymDataTable(props) {
     {
       Header: "헬스장 이름",
       accessor: "BPLCNM",
-    },
+    }, 
     {
       Header: "헬스장 위치",
       accessor: "RDNWHLADDR",
@@ -113,7 +114,7 @@ function GymDataTable(props) {
   ];
 
   const columns = useMemo(() => columnData, []);
-  const data = useMemo(() => props.guonoff, []);
+  const data = useMemo(() => props.guonoff, [props.guonoff]);
 
   const tableInstance = useTable({
     columns,
@@ -149,5 +150,4 @@ function GymDataTable(props) {
     </table>
   );
 }
-
 export default Gym;

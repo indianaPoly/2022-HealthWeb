@@ -9,7 +9,6 @@ import Signin from "./routes/signin";
 
 function App() {
   return (
-    
     <div className="App">
       <Navbar_></Navbar_>
       <Routes>
