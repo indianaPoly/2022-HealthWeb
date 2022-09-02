@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
 import { Carousel } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
