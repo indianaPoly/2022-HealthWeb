@@ -16,8 +16,7 @@ function App() {
           path="/"
           element={
             <>
-              <NewsData>
-              </NewsData>
+              <NewsData></NewsData>
               <EnquiryAndNotice></EnquiryAndNotice>
             </>
           }
@@ -31,11 +30,10 @@ function App() {
   );
 }
 
-
 /**
- * @todo 이미지 안에 navbar가 보이도록 설계할 것 
- * @returns 
- */  
+ * @todo 이미지 안에 navbar가 보이도록 설계할 것
+ * @returns
+ */
 
 function Navbar_() {
   let navigate = useNavigate();
@@ -51,7 +49,7 @@ function Navbar_() {
             letterSpacing: "-1px",
             fontSize: "30px",
             fontWeight: 700,
-            textShadow: "1px 1px 3px #222"
+            textShadow: "1px 1px 3px #222",
           }}
         >
           SIGN
@@ -66,7 +64,7 @@ function Navbar_() {
               letterSpacing: "-1px",
               fontSize: "13px",
               fontWeight: 700,
-              textShadow: "1px 1px 3px #222"
+              textShadow: "1px 1px 3px #222",
             }}
           >
             헬스장 정보
@@ -80,7 +78,7 @@ function Navbar_() {
               letterSpacing: "-1px",
               fontSize: "13px",
               fontWeight: 700,
-              textShadow: "1px 1px 3px #222"
+              textShadow: "1px 1px 3px #222",
             }}
           >
             보충제 정보
@@ -94,7 +92,7 @@ function Navbar_() {
               letterSpacing: "-1px",
               fontSize: "13px",
               fontWeight: 700,
-              textShadow: "1px 1px 3px #222"
+              textShadow: "1px 1px 3px #222",
             }}
           >
             회원가입 하기
@@ -108,7 +106,7 @@ function Navbar_() {
               letterSpacing: "-1px",
               fontSize: "13px",
               fontWeight: 700,
-              textShadow: "1px 1px 3px #222"
+              textShadow: "1px 1px 3px #222",
             }}
           >
             로그인 하기

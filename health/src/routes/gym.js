@@ -3,6 +3,7 @@ import { Button, ButtonGroup, DropdownButton, Dropdown } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { useTable } from "react-table";
+import './gym.css';
 
 function Gym() {
   // 데이터가 총 5000개 가 넘게 있는거 생각해야 됨.
