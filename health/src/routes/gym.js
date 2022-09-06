@@ -46,7 +46,6 @@ function Gym() {
         setGuOnoff((guonoffArray) => [...guonoffArray, guOpenGymlData]);
       }
     }
-    console.log(guonoff);
   };
   
   return (
