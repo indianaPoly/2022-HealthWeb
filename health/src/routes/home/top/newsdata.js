@@ -1,23 +1,33 @@
+import { React } from "react";
 import axios from "axios";
 import { Carousel } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 
+// 굳이 이렇게 관리를 해야하는 건가 ?
 function NewsData() {
   return <ControlledCarousel></ControlledCarousel>;
 }
 
 function ControlledCarousel() {
 
-  let result = useQuery(["todos"], () =>
-    axios
-      .get(
-        `https://newsapi.org/v2/everything?q=Health&from=2022-08-01&to=2022-08-26&sortBy=popularity&apiKey=${process.env.REACT_APP_newsDataAPIKEY}`
-      )
-      .then((a) => {
-        return a.data;
-      })
-  );
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const date = today.getDate();
 
+  const url =
+    "https://newsapi.org/v2/everything?" +
+    "q=health&" +
+    `from=${year}-${month >= 10 ? month : '0' + month}-${date >= 10 ? date : '0' + date}` +
+    "sortBy=popularity&" +
+    `apiKey=${process.env.REACT_APP_newsDataAPIKEY}`;
+
+  let result = useQuery(["todos"], () =>
+    axios.get(url).then((response) => {
+      return response.data;
+    })
+  );
+  
   return (
     <div>
       {result.isLoading && "로딩중입니다. 잠시만 기다려주세요."}
@@ -102,4 +112,5 @@ function ControlledCarousel() {
     </div>
   );
 }
+
 export default NewsData;
