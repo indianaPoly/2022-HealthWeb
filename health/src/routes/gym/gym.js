@@ -4,7 +4,6 @@ import {
   ButtonGroup,
   DropdownButton,
   Dropdown,
-  Modal,
 } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
@@ -69,11 +68,14 @@ function Gym() {
           title="사는 동네를 설정해주세요."
           id="bg-nested-dropdown"
           onSelect={handleSelect}
-        > 
+        >
           {seoulLocation_.map((a, i) => {
-            return <Dropdown.Item key={i} eventKey={a}>{a}</Dropdown.Item>
+            return (
+              <Dropdown.Item key={i} eventKey={a}>
+                {a}
+              </Dropdown.Item>
+            );
           })}
-          
         </DropdownButton>
       </ButtonGroup>
       <GymDataTable guonoff={guonoff}></GymDataTable>

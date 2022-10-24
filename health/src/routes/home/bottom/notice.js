@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, ListGroup } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 
 function Notice() {
@@ -16,26 +16,31 @@ function Notice() {
             className="top"
             style={{
               position: "relative",
+              margin: "0",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              border: "1px solid rgb(233,233,233)",
+              borderRadius: "10px",
             }}
           >
             <p
               style={{
                 display: "inline-block",
-                position: "absolute",
-                marginLeft: "0",
+                margin: "15px",
               }}
             >
-              공지사항
+              운동일지
             </p>
             <button
               onClick={handleOn}
               style={{
-                position: "absolute",
-                marginRight: "0",
+                width: "20px",
+                height: "20px",
+                margin: "15px",
+                backgroundColor: "wheat",
               }}
-            >
-              ✚
-            </button>
+            ></button>
             {show === true ? (
               <FormModal
                 show={show}
@@ -46,8 +51,17 @@ function Notice() {
           </div>
         </section>
         <section>
-          <div className="list">
-            <ul></ul>
+          <div
+            className="list"
+            style={{
+              marginTop: "10px",
+            }}
+          >
+            <ListGroup as="ul">
+              {JSON.parse(localStorage.getItem("workList")).map((a, i) => {
+                return (<ListGroup.Item as="li" key={i}>{a}</ListGroup.Item>);
+              })}
+            </ListGroup>
           </div>
         </section>
       </Col>
@@ -56,63 +70,40 @@ function Notice() {
 }
 
 function FormModal(props) {
-  // 리액트에서 html 값에 접근을 하기 위해서는 state와 함수를 통해서 접근해야 함.
-  const [info, setInfo] = useState({
-    titleContext: "",
-    valueContext: "",
-    time: "",
-  });
-
-  // 비구조화를 통한 값 추출
-  const { titleContext, valueContext } = info;
+  const [workData, setWorkData] = useState();
 
   const onChangeInfo = (e) => {
     const { value, name } = e.target;
-    setInfo({
-      ...info,
-      [name]: value,
-    });
-    console.log(info);
+    setWorkData(value);
   };
 
   const onClickClose = () => {
-    setInfo({
-      titleContext: "",
-      valueContext: "",
-    });
+    setWorkData();
     props.setShow(false);
   };
 
   const onClickSave = () => {
-    localStorage.setItem(info.titleContext, JSON.stringify(info));
-    setInfo({
-      titleContext: "",
-      valueContext: "",
-    });
+    let workList = localStorage.getItem("workList");
+    workList = JSON.parse(workList);
+    workList.push(workData);
+    localStorage.setItem("workList", JSON.stringify(workList));
+    setWorkData();
     props.setShow(false);
   };
 
   return (
     <Modal show={props.show} onHide={props.handleOff} animation={false}>
       <Modal.Header closeButton>
-        <Modal.Title>공지사항 작성</Modal.Title>
+        <Modal.Title>운동일지 작성</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form action="#" acceptCharset="utf-8" name="infoForm">
           <input
-            name="titleContext"
+            name="workData"
             type="text"
             required
-            placeholder="공지사항 제목을 입력하세요."
-            value={titleContext}
-            onChange={onChangeInfo}
-          ></input>
-          <input
-            name="valueContext"
-            type="text"
-            required
-            placeholder="공지사항 내용을 입력하세요."
-            value={valueContext}
+            placeholder="운동이름을 입력하세요."
+            value={workData}
             onChange={onChangeInfo}
           ></input>
         </form>
@@ -128,4 +119,5 @@ function FormModal(props) {
     </Modal>
   );
 }
+
 export default Notice;
