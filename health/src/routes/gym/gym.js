@@ -1,10 +1,5 @@
 import axios from "axios";
-import {
-  Button,
-  ButtonGroup,
-  DropdownButton,
-  Dropdown,
-} from "react-bootstrap";
+import { Button, ButtonGroup, DropdownButton, Dropdown } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { useTable } from "react-table";
@@ -128,7 +123,6 @@ function GymDataTable(props) {
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
                 return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-                // td클릭하면 GymModal이 보여야 하는데 이 때 GymModal이 보일려면 handleShow를 실행시켜 State를 변경시켜야 함.
               })}
             </tr>
           );

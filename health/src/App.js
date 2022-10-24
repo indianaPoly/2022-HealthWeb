@@ -8,7 +8,8 @@ function App() {
     let workList = localStorage.getItem("workList");
     if (workList.length == 0) {
       localStorage.setItem("workList", JSON.stringify([]));
-    } else {}
+    } else {
+    }
   }, []);
 
   return (

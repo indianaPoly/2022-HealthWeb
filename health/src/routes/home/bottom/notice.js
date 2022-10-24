@@ -59,7 +59,11 @@ function Notice() {
           >
             <ListGroup as="ul">
               {JSON.parse(localStorage.getItem("workList")).map((a, i) => {
-                return (<ListGroup.Item as="li" key={i}>{a}</ListGroup.Item>);
+                return (
+                  <ListGroup.Item as="li" key={i}>
+                    {a}
+                  </ListGroup.Item>
+                );
               })}
             </ListGroup>
           </div>
